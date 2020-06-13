@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "closure #1 in SetGameModel.tryMatching():SetGame.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "Set(selectedCards.map { table[$0].color })">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "SetGameModel.tryMatching():SetGame.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "Set([table[first].shape, table[second].shape, table[third].shape])">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "CardView.shapeView():ContentView.swift">
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>
