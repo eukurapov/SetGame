@@ -46,17 +46,17 @@ struct ContentView: View {
 
 struct CardView: View {
     
-    var card: SetGameModel.Card
+    var card: SetGameModel<CardContent>.Card
     private var cardColor: Color {
         // TODO: Replace with theme.color(for card.color)
-        switch card.color {
+        switch card.content.color {
             case .red: return .red
             case .green: return .green
             case .purple: return .purple
         }
     }
     private var fillColor: Color {
-        switch card.shading {
+        switch card.content.shading {
         case .open: return .white
         case .solid: return cardColor
         case .striped: return cardColor.opacity(0.25)
@@ -65,7 +65,7 @@ struct CardView: View {
     
     var body: some View {
         VStack {
-            ForEach(0..<card.numberOfShapes.rawValue) { index in
+            ForEach(0..<card.content.numberOfShapes.rawValue) { index in
                 self.shapeView()
                     //.aspectRatio(1, contentMode: .fit)
             }
@@ -78,9 +78,8 @@ struct CardView: View {
         .padding(5)
     }
     
-    
     private func shapeView() -> AnyView {
-        switch self.card.shape {
+        switch self.card.content.shape {
         case .diamond: return AnyView(Rectangle().fill(fillColor).overlay(Rectangle().stroke())
                                 .aspectRatio(1, contentMode: .fit))
         case .oval: return AnyView(Capsule().fill(fillColor).overlay(Capsule().stroke())
