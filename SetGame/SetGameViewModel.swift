@@ -10,7 +10,7 @@ import SwiftUI
 
 class SetGameViewModel: ObservableObject {
     
-    @Published private var setGame: SetGameModel = SetGameViewModel.newGame()
+    @Published private var setGame: SetGameModel<CardContent>?
     var colorSet = (
         red: Color(#colorLiteral(red: 1, green: 0.4932718873, blue: 0.4739984274, alpha: 1)),
         green: Color(#colorLiteral(red: 0.4508578777, green: 0.9882974029, blue: 0.8376303315, alpha: 1)),
@@ -32,8 +32,8 @@ class SetGameViewModel: ObservableObject {
     
     // MARK: Access to the model
     
-    var table: [SetGameModel<CardContent>.Card] { setGame.table }
-    var score: Int { setGame.score }
+    var table: [SetGameModel<CardContent>.Card] { setGame?.table ?? [] }
+    var score: Int { setGame?.score ?? 0 }
     
     // MARK: Intents
     
@@ -42,11 +42,11 @@ class SetGameViewModel: ObservableObject {
     }
     
     func select(card: SetGameModel<CardContent>.Card) {
-        setGame.select(card: card)
+        setGame?.select(card: card)
     }
     
     func dealMore() {
-        setGame.deal(3)
+        setGame?.deal(3)
     }
     
 }
