@@ -12,16 +12,14 @@ struct Cardify: AnimatableModifier {
     var isFaceUp: Bool {
         get { rotation < 90 }
     }
-    var isSelected: Bool = false
-    var isMatched: Bool = false
+    var shadowColor: Color?
     var coverGradient: Gradient?
     private var rotation: Double
     
-    init(isFaceUp: Bool, isSelected: Bool?, isMatched: Bool?, coverGradient: Gradient?) {
+    init(isFaceUp: Bool, shadowColor: Color?, coverGradient: Gradient?) {
         rotation = isFaceUp ? 0 : 180
         self.coverGradient = coverGradient
-        self.isSelected = isSelected ?? false
-        self.isMatched = isMatched ?? false
+        self.shadowColor = shadowColor
     }
     
     var animatableData: Double {
@@ -31,18 +29,11 @@ struct Cardify: AnimatableModifier {
 
     func body(content: Content) -> some View {
         ZStack {
-            if isSelected {
-                if isMatched {
-                    RoundedRectangle(cornerRadius: cornerRadius)
-                        .shadow(
-                            color: Color(#colorLiteral(red: 0, green: 0.5603182912, blue: 0, alpha: 1)).opacity(1),
-                            radius: 9)
-                } else {
-                    RoundedRectangle(cornerRadius: cornerRadius)
-                        .shadow(
-                            color: Color(#colorLiteral(red: 1, green: 0.8323456645, blue: 0.4732058644, alpha: 1)).opacity(1) ,
-                            radius: 9)
-                }
+            if shadowColor != nil {
+                RoundedRectangle(cornerRadius: cornerRadius)
+                    .shadow(
+                        color: shadowColor!.opacity(1),
+                        radius: 9)
             }
             
             Group {
@@ -70,12 +61,10 @@ struct Cardify: AnimatableModifier {
 
 extension View {
     func cardify(isFaceUp: Bool,
-                 isSelected: Bool? = nil,
-                 isMatched: Bool? = nil,
+                 shadowColor: Color? = nil,
                  with gradient: Gradient? = nil) -> some View {
         self.modifier(Cardify(isFaceUp: isFaceUp,
-                              isSelected: isSelected,
-                              isMatched: isMatched,
+                              shadowColor: shadowColor,
                               coverGradient: gradient))
     }
 }

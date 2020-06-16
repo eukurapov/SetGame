@@ -41,8 +41,10 @@ struct ContentView: View {
                 .padding(5)
         }
         .onAppear {
-            withAnimation {
-                self.setGameViewModel.newGame()
+            if self.setGameViewModel.table.isEmpty {
+                withAnimation {
+                    self.setGameViewModel.newGame()
+                }
             }
         }
     }
@@ -80,8 +82,7 @@ struct CardView: View {
             .padding(10)
             .foregroundColor(cardColor)
             .cardify(isFaceUp: card.isFaceUp,
-                     isSelected: card.isSelected,
-                     isMatched: card.isMatched)
+                     shadowColor: card.isSelected ? (card.isMatched ? Color(#colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)) : Color(#colorLiteral(red: 0.9607843161, green: 0.7058823705, blue: 0.200000003, alpha: 1))) : nil)
             .aspectRatio(0.75, contentMode: .fit)
             .padding(5)
             .transition(.offset(CGSize(width: Int.random(in: -500...1000), height: Int.random(in: -500...1000))))
