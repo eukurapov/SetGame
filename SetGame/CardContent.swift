@@ -6,20 +6,20 @@
 //  Copyright © 2020 Evgeniy Kurapov. All rights reserved.
 //
 
-import Foundation
+import SwiftUI
 
 struct CardContent: Matchable {
     
     // card features
-    var numberOfShapes: Number
-    var shape: Shape
-    var shading: Shading
-    var color: Color
+    var numberOfShapes: NumberOfShapes
+    var shape: ContentShape
+    var shading: ContentShading
+    var color: ContentColor
     
-    enum Number: Int, CaseIterable { case one = 1, two, three }
-    enum Shape: CaseIterable { case diamond, squiggle, oval }
-    enum Shading: CaseIterable { case solid, striped, open }
-    enum Color: CaseIterable { case red, green, purple }
+    enum NumberOfShapes: Int, CaseIterable { case one = 1, two, three }
+    enum ContentShape: CaseIterable { case diamond, squiggle, oval }
+    enum ContentShading: CaseIterable { case solid, striped, open }
+    enum ContentColor: CaseIterable { case red, green, purple }
     
     static func match(items: [CardContent]) -> Bool {
         let colorMatched = featureMatch(items: items) { $0.color }

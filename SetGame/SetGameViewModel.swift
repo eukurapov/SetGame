@@ -11,13 +11,17 @@ import SwiftUI
 class SetGameViewModel: ObservableObject {
     
     @Published private var setGame: SetGameModel = SetGameViewModel.newGame()
+    var colorSet = (
+        red: Color(#colorLiteral(red: 1, green: 0.4932718873, blue: 0.4739984274, alpha: 1)),
+        green: Color(#colorLiteral(red: 0.4508578777, green: 0.9882974029, blue: 0.8376303315, alpha: 1)),
+        purple: Color(#colorLiteral(red: 0.8446564078, green: 0.5145705342, blue: 1, alpha: 1)))
     
     private static func newGame() -> SetGameModel<CardContent> {
         var contents = [CardContent]()
-        for number in CardContent.Number.allCases {
-            for shape in CardContent.Shape.allCases {
-                for shading in CardContent.Shading.allCases {
-                    for color in CardContent.Color.allCases {
+        for number in CardContent.NumberOfShapes.allCases {
+            for shape in CardContent.ContentShape.allCases {
+                for shading in CardContent.ContentShading.allCases {
+                    for color in CardContent.ContentColor.allCases {
                         contents.append(CardContent(numberOfShapes: number, shape: shape, shading: shading, color: color))
                     }
                 }
@@ -31,14 +35,6 @@ class SetGameViewModel: ObservableObject {
     var table: [SetGameModel<CardContent>.Card] { setGame.table }
     var score: Int { setGame.score }
     
-    func color(for cardColor: CardContent.Color) -> Color {
-        switch cardColor {
-        case .red: return .red
-        case .green: return .green
-        case .purple: return .purple
-        }
-    }
-    
     // MARK: Intents
     
     func newGame() {
@@ -50,7 +46,7 @@ class SetGameViewModel: ObservableObject {
     }
     
     func dealMore() {
-        setGame.deal(cards: 3)
+        setGame.deal(3)
     }
     
 }

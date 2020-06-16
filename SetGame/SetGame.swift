@@ -14,7 +14,7 @@ struct SetGameModel<CardContent> where CardContent: Matchable {
     private var deck: [Card] { cards.filter { !$0.isDealt && !$0.isDiscarded } }
     var table: [Card] { cards.filter { $0.isDealt && !$0.isDiscarded } }
     private var selectedCards: [Int] { cards.indices.filter { cards[$0].isSelected && !cards[$0].isDiscarded } }
-    private var isReadyToMatch: Bool { selectedCards.count == cardsToMatch }
+    private var isReadyToMatch: Bool { selectedCards.count == numberOfCardsToMatch }
     
     private(set) var score: Int = 0
     
@@ -23,7 +23,8 @@ struct SetGameModel<CardContent> where CardContent: Matchable {
     private var thirdSelected: Int? { selectedCards.count > 2 ? selectedCards[2] : nil }
     
     // TODO: Update to take it as init parameter
-    let cardsToMatch = 3
+    let numberOfCardsToMatch = 3
+    let numberOfCardsToStart = 12
     
     init(numberOfCardsInDeck: Int, cardContentFactory: (Int) -> CardContent) {
         cards = []
@@ -31,10 +32,10 @@ struct SetGameModel<CardContent> where CardContent: Matchable {
             cards.append(Card(id: index, content: cardContentFactory(index)))
         }
         cards.shuffle()
-        deal(cards: 12)
+        deal(numberOfCardsToStart)
     }
     
-    mutating func deal(cards numberToDeal: Int) {
+    mutating func deal(_ numberToDeal: Int = 1) {
         for i in 0..<numberToDeal {
             if !deck.isEmpty {
                 if let index = cards.firstIndexOf(deck[i]) {
@@ -46,12 +47,12 @@ struct SetGameModel<CardContent> where CardContent: Matchable {
     
     mutating func select(card: Card) {
         if let selectedIndex = cards.firstIndexOf(card) {
-            if selectedCards.count == 3 {
+            if isReadyToMatch {
                 for index in selectedCards {
                     cards[index].isSelected = false
                     if cards[index].isMatched {
                         cards[index].isDiscarded = true
-                        deal(cards: 1)
+                        deal()
                     }
                 }
             }

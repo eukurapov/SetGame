@@ -31,7 +31,7 @@ struct ContentView: View {
             }
                 .padding(5)
             Grid(setGameViewModel.table) { card in
-                CardView(card: card)
+                CardView(card: card, colorSet: self.setGameViewModel.colorSet)
                     .onTapGesture {
                         withAnimation {
                             self.setGameViewModel.select(card: card)
@@ -47,14 +47,17 @@ struct ContentView: View {
 struct CardView: View {
     
     var card: SetGameModel<CardContent>.Card
+    var colorSet: (red: Color, green: Color, purple: Color)
+    
     private var cardColor: Color {
         // TODO: Replace with theme.color(for card.color)
         switch card.content.color {
-            case .red: return .red
-            case .green: return .green
-            case .purple: return .purple
+            case .red: return colorSet.red
+            case .green: return colorSet.green
+            case .purple: return colorSet.purple
         }
     }
+    
     private var fillColor: Color {
         switch card.content.shading {
         case .open: return .white
@@ -70,7 +73,7 @@ struct CardView: View {
                     //.aspectRatio(1, contentMode: .fit)
             }
         }
-        .padding(5)
+        .padding(10)
         .foregroundColor(cardColor)
         .cardify(isFaceUp: card.isFaceUp,
                  isSelected: card.isSelected,
@@ -78,15 +81,23 @@ struct CardView: View {
         .padding(5)
     }
     
-    private func shapeView() -> AnyView {
-        switch self.card.content.shape {
-        case .diamond: return AnyView(Rectangle().fill(fillColor).overlay(Rectangle().stroke())
-                                .aspectRatio(1, contentMode: .fit))
-        case .oval: return AnyView(Capsule().fill(fillColor).overlay(Capsule().stroke())
-                                .aspectRatio(2, contentMode: .fit))
-        case .squiggle: return AnyView(Circle().fill(fillColor).overlay(Circle().stroke()))
+    private func shapeView() -> some View {
+        Group {
+            if card.content.shape == .diamond {
+                Rectangle().fill(fillColor).overlay(Rectangle().stroke(lineWidth: shapeLineWidth))
+                                    .aspectRatio(1, contentMode: .fit)
+            }
+            if card.content.shape == .oval {
+                Capsule().fill(fillColor).overlay(Capsule().stroke(lineWidth: shapeLineWidth))
+                                    .aspectRatio(2, contentMode: .fit)
+            }
+            if card.content.shape == .squiggle {
+                Circle().fill(fillColor).overlay(Circle().stroke(lineWidth: shapeLineWidth))
+            }
         }
     }
+    
+    let shapeLineWidth: CGFloat = 2
     
 }
 
