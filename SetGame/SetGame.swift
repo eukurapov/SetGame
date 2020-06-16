@@ -32,14 +32,17 @@ struct SetGameModel<CardContent> where CardContent: Matchable {
             cards.append(Card(id: index, content: cardContentFactory(index)))
         }
         cards.shuffle()
+        print(cards.prefix(20).map{ $0.id })
         deal(numberOfCardsToStart)
     }
     
     mutating func deal(_ numberToDeal: Int = 1) {
-        for i in 0..<numberToDeal {
+        print(deck.prefix(20).map{ $0.id })
+        for _ in 0..<numberToDeal {
             if !deck.isEmpty {
-                if let index = cards.firstIndexOf(deck[i]) {
+                if let index = cards.firstIndexOf(deck[0]) {
                     cards[index].isDealt = true
+                    print("card \(cards[index].id), index \(index)")
                 }
             }
         }
