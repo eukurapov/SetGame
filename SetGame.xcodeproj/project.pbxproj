@@ -19,6 +19,8 @@
 		4482A6DC2493A0B900F2CD6C /* GridLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4482A6D92493A0B900F2CD6C /* GridLayout.swift */; };
 		4482A6DD2493A0B900F2CD6C /* Cardify.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4482A6DA2493A0B900F2CD6C /* Cardify.swift */; };
 		4482A6DF2493A51B00F2CD6C /* Array+Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4482A6DE2493A51B00F2CD6C /* Array+Identifiable.swift */; };
+		4482A6E124954ADD00F2CD6C /* CardContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4482A6E024954ADD00F2CD6C /* CardContent.swift */; };
+		4482A6E324954B0F00F2CD6C /* Matchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4482A6E224954B0F00F2CD6C /* Matchable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +38,8 @@
 		4482A6D92493A0B900F2CD6C /* GridLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridLayout.swift; sourceTree = "<group>"; };
 		4482A6DA2493A0B900F2CD6C /* Cardify.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cardify.swift; sourceTree = "<group>"; };
 		4482A6DE2493A51B00F2CD6C /* Array+Identifiable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Identifiable.swift"; sourceTree = "<group>"; };
+		4482A6E024954ADD00F2CD6C /* CardContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardContent.swift; sourceTree = "<group>"; };
+		4482A6E224954B0F00F2CD6C /* Matchable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Matchable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +77,8 @@
 				44381A212493903900351135 /* ContentView.swift */,
 				4482A6D624939C5A00F2CD6C /* SetGameViewModel.swift */,
 				44381A312493911B00351135 /* SetGame.swift */,
+				4482A6E024954ADD00F2CD6C /* CardContent.swift */,
+				4482A6E224954B0F00F2CD6C /* Matchable.swift */,
 				4482A6DA2493A0B900F2CD6C /* Cardify.swift */,
 				4482A6DE2493A51B00F2CD6C /* Array+Identifiable.swift */,
 				4482A6D82493A0B900F2CD6C /* Grid.swift */,
@@ -165,8 +171,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				44381A1E2493903900351135 /* AppDelegate.swift in Sources */,
+				4482A6E124954ADD00F2CD6C /* CardContent.swift in Sources */,
 				44381A202493903900351135 /* SceneDelegate.swift in Sources */,
 				4482A6DD2493A0B900F2CD6C /* Cardify.swift in Sources */,
+				4482A6E324954B0F00F2CD6C /* Matchable.swift in Sources */,
 				44381A322493911B00351135 /* SetGame.swift in Sources */,
 				44381A222493903900351135 /* ContentView.swift in Sources */,
 				4482A6DF2493A51B00F2CD6C /* Array+Identifiable.swift in Sources */,

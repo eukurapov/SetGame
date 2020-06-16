@@ -35,15 +35,16 @@ struct Cardify: AnimatableModifier {
                 if isMatched {
                     RoundedRectangle(cornerRadius: cornerRadius)
                         .shadow(
-                            color: Color.green.opacity(1),
+                            color: Color(#colorLiteral(red: 0, green: 0.5603182912, blue: 0, alpha: 1)).opacity(1),
                             radius: 9)
                 } else {
                     RoundedRectangle(cornerRadius: cornerRadius)
-                    .shadow(
-                        color: Color.yellow.opacity(1) ,
-                        radius: 9)
+                        .shadow(
+                            color: Color(#colorLiteral(red: 1, green: 0.8323456645, blue: 0.4732058644, alpha: 1)).opacity(1) ,
+                            radius: 9)
                 }
             }
+            
             Group {
                 RoundedRectangle(cornerRadius: cornerRadius).stroke(lineWidth: strokeWidth)
                 RoundedRectangle(cornerRadius: cornerRadius).fill().foregroundColor(.white)
@@ -64,7 +65,7 @@ struct Cardify: AnimatableModifier {
     }
     
     private let cornerRadius: CGFloat = 10
-    private let strokeWidth: CGFloat = 3
+    private let strokeWidth: CGFloat = 1
 }
 
 extension View {
