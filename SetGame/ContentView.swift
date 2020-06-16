@@ -40,6 +40,11 @@ struct ContentView: View {
             }
                 .padding(5)
         }
+        .onAppear {
+            withAnimation {
+                self.setGameViewModel.newGame()
+            }
+        }
     }
     
 }
@@ -70,15 +75,17 @@ struct CardView: View {
         VStack {
             ForEach(0..<card.content.numberOfShapes.rawValue) { index in
                 self.shapeView()
-                    //.aspectRatio(1, contentMode: .fit)
             }
         }
-        .padding(10)
-        .foregroundColor(cardColor)
-        .cardify(isFaceUp: card.isFaceUp,
-                 isSelected: card.isSelected,
-                 isMatched: card.isMatched)
-        .padding(5)
+            .padding(10)
+            .foregroundColor(cardColor)
+            .cardify(isFaceUp: card.isFaceUp,
+                     isSelected: card.isSelected,
+                     isMatched: card.isMatched)
+            .aspectRatio(0.75, contentMode: .fit)
+            .padding(5)
+            .transition(.offset(CGSize(width: Int.random(in: -500...1000), height: Int.random(in: -500...1000))))
+            .animation(.easeInOut(duration: 0.75))
     }
     
     private func shapeView() -> some View {
@@ -124,6 +131,7 @@ struct CardView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         let setGameViewModel = SetGameViewModel()
+        setGameViewModel.newGame()
         setGameViewModel.select(card: setGameViewModel.table[0])
         return ContentView(setGameViewModel: setGameViewModel)
     }

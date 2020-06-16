@@ -36,9 +36,9 @@ struct SetGameModel<CardContent> where CardContent: Matchable {
     }
     
     mutating func deal(_ numberToDeal: Int = 1) {
-        for i in 0..<numberToDeal {
+        for _ in 0..<numberToDeal {
             if !deck.isEmpty {
-                if let index = cards.firstIndexOf(deck[i]) {
+                if let index = cards.firstIndexOf(deck[0]) {
                     cards[index].isDealt = true
                 }
             }
