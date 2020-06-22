@@ -32,11 +32,17 @@ struct ContentView: View {
                 .padding(5)
             Grid(setGameViewModel.table) { card in
                 CardView(card: card, colorSet: self.setGameViewModel.colorSet)
+                    .cardify(isFaceUp: card.isFaceUp,
+                             shadowColor: self.highlightColor(card: card))
+                    .padding(5)
+                    .aspectRatio(0.75, contentMode: .fit)
+                    .transition(.offset(CGSize(width: Int.random(in: -500...1000), height: Int.random(in: -500...1000))))
+                    .animation(.easeInOut(duration: 0.45))
                     .onTapGesture {
                         withAnimation {
                             self.setGameViewModel.select(card: card)
                         }
-                }
+                    }
             }
                 .padding(5)
         }
@@ -47,6 +53,20 @@ struct ContentView: View {
                 }
             }
         }
+    }
+    
+    private func highlightColor(card: SetGameModel<CardContent>.Card) -> Color? {
+        var color: Color? = nil
+        if card.isSelected {
+            if card.isMatched {
+                color = Color(#colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1))
+            } else if setGameViewModel.isReadyToMatch {
+                color = Color(#colorLiteral(red: 1, green: 0.4932718873, blue: 0.4739984274, alpha: 1))
+            } else {
+                color = Color(#colorLiteral(red: 0.9607843161, green: 0.7058823705, blue: 0.200000003, alpha: 1))
+            }
+        }
+        return color
     }
     
 }
@@ -81,12 +101,6 @@ struct CardView: View {
         }
             .padding(10)
             .foregroundColor(cardColor)
-            .cardify(isFaceUp: card.isFaceUp,
-                     shadowColor: card.isSelected ? (card.isMatched ? Color(#colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)) : Color(#colorLiteral(red: 0.9607843161, green: 0.7058823705, blue: 0.200000003, alpha: 1))) : nil)
-            .aspectRatio(0.75, contentMode: .fit)
-            .padding(5)
-            .transition(.offset(CGSize(width: Int.random(in: -500...1000), height: Int.random(in: -500...1000))))
-            .animation(.easeInOut(duration: 0.75))
     }
     
     private func shapeView() -> some View {

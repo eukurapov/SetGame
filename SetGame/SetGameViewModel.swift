@@ -34,6 +34,7 @@ class SetGameViewModel: ObservableObject {
     
     var table: [SetGameModel<CardContent>.Card] { setGame?.table ?? [] }
     var score: Int { setGame?.score ?? 0 }
+    var isReadyToMatch: Bool { return setGame?.isReadyToMatch ?? false }
     
     // MARK: Intents
     

@@ -14,7 +14,7 @@ struct SetGameModel<CardContent> where CardContent: Matchable {
     private var deck: [Card] { cards.filter { !$0.isDealt && !$0.isDiscarded } }
     var table: [Card] { cards.filter { $0.isDealt && !$0.isDiscarded } }
     private var selectedCards: [Int] { cards.indices.filter { cards[$0].isSelected && !cards[$0].isDiscarded } }
-    private var isReadyToMatch: Bool { selectedCards.count == numberOfCardsToMatch }
+    var isReadyToMatch: Bool { selectedCards.count == numberOfCardsToMatch }
     
     private(set) var score: Int = 0
     
