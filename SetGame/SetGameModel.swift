@@ -1,5 +1,5 @@
 //
-//  SetGame.swift
+//  SetGameModel.swift
 //  SetGame
 //
 //  Created by Evgeniy Kurapov on 12.06.2020.

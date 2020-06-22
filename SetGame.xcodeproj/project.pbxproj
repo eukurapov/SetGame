@@ -13,7 +13,7 @@
 		44381A242493903C00351135 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 44381A232493903C00351135 /* Assets.xcassets */; };
 		44381A272493903C00351135 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 44381A262493903C00351135 /* Preview Assets.xcassets */; };
 		44381A2A2493903C00351135 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 44381A282493903C00351135 /* LaunchScreen.storyboard */; };
-		44381A322493911B00351135 /* SetGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44381A312493911B00351135 /* SetGame.swift */; };
+		44381A322493911B00351135 /* SetGameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44381A312493911B00351135 /* SetGameModel.swift */; };
 		4482A6D724939C5A00F2CD6C /* SetGameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4482A6D624939C5A00F2CD6C /* SetGameViewModel.swift */; };
 		4482A6DB2493A0B900F2CD6C /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4482A6D82493A0B900F2CD6C /* Grid.swift */; };
 		4482A6DC2493A0B900F2CD6C /* GridLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4482A6D92493A0B900F2CD6C /* GridLayout.swift */; };
@@ -32,7 +32,7 @@
 		44381A262493903C00351135 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		44381A292493903C00351135 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		44381A2B2493903C00351135 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		44381A312493911B00351135 /* SetGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetGame.swift; sourceTree = "<group>"; };
+		44381A312493911B00351135 /* SetGameModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetGameModel.swift; sourceTree = "<group>"; };
 		4482A6D624939C5A00F2CD6C /* SetGameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetGameViewModel.swift; sourceTree = "<group>"; };
 		4482A6D82493A0B900F2CD6C /* Grid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Grid.swift; sourceTree = "<group>"; };
 		4482A6D92493A0B900F2CD6C /* GridLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridLayout.swift; sourceTree = "<group>"; };
@@ -76,7 +76,7 @@
 				44381A1F2493903900351135 /* SceneDelegate.swift */,
 				44381A212493903900351135 /* ContentView.swift */,
 				4482A6D624939C5A00F2CD6C /* SetGameViewModel.swift */,
-				44381A312493911B00351135 /* SetGame.swift */,
+				44381A312493911B00351135 /* SetGameModel.swift */,
 				4482A6E024954ADD00F2CD6C /* CardContent.swift */,
 				4482A6E224954B0F00F2CD6C /* Matchable.swift */,
 				4482A6DA2493A0B900F2CD6C /* Cardify.swift */,
@@ -175,7 +175,7 @@
 				44381A202493903900351135 /* SceneDelegate.swift in Sources */,
 				4482A6DD2493A0B900F2CD6C /* Cardify.swift in Sources */,
 				4482A6E324954B0F00F2CD6C /* Matchable.swift in Sources */,
-				44381A322493911B00351135 /* SetGame.swift in Sources */,
+				44381A322493911B00351135 /* SetGameModel.swift in Sources */,
 				44381A222493903900351135 /* ContentView.swift in Sources */,
 				4482A6DF2493A51B00F2CD6C /* Array+Identifiable.swift in Sources */,
 				4482A6D724939C5A00F2CD6C /* SetGameViewModel.swift in Sources */,
