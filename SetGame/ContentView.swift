@@ -28,6 +28,7 @@ struct ContentView: View {
                         self.setGameViewModel.dealMore()
                     }
                 }
+                .disabled(setGameViewModel.isDeckEmpty)
             }
                 .padding(5)
             Grid(setGameViewModel.table) { card in

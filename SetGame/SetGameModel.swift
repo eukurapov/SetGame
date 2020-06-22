@@ -11,7 +11,7 @@ import Foundation
 struct SetGameModel<CardContent> where CardContent: Matchable {
     
     private var cards: [Card]!
-    private var deck: [Card] { cards.filter { !$0.isDealt && !$0.isDiscarded } }
+    var deck: [Card] { cards.filter { !$0.isDealt && !$0.isDiscarded } }
     var table: [Card] { cards.filter { $0.isDealt && !$0.isDiscarded } }
     private var selectedCards: [Int] { cards.indices.filter { cards[$0].isSelected && !cards[$0].isDiscarded } }
     var isReadyToMatch: Bool { selectedCards.count == numberOfCardsToMatch }
@@ -36,6 +36,13 @@ struct SetGameModel<CardContent> where CardContent: Matchable {
     }
     
     mutating func deal(_ numberToDeal: Int = 1) {
+        if isReadyToMatch {
+            for index in selectedCards {
+                if cards[index].isMatched {
+                    cards[index].isDiscarded = true
+                }
+            }
+        }
         for _ in 0..<numberToDeal {
             if !deck.isEmpty {
                 if let index = cards.firstIndexOf(deck[0]) {
