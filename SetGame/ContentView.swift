@@ -107,7 +107,7 @@ struct CardView: View {
     private func shapeView() -> some View {
         Group {
             if card.content.shape == .diamond {
-                Rectangle().fill(fillColor).overlay(Rectangle().stroke(lineWidth: shapeLineWidth))
+                Diamond().fill(fillColor).overlay(Diamond().stroke(lineWidth: shapeLineWidth))
                                     .aspectRatio(1, contentMode: .fit)
             }
             if card.content.shape == .oval {

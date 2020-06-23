@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		44110E0824A2533F000921D5 /* Diamond.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44110E0724A2533F000921D5 /* Diamond.swift */; };
 		44381A1E2493903900351135 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44381A1D2493903900351135 /* AppDelegate.swift */; };
 		44381A202493903900351135 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44381A1F2493903900351135 /* SceneDelegate.swift */; };
 		44381A222493903900351135 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44381A212493903900351135 /* ContentView.swift */; };
@@ -24,6 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		44110E0724A2533F000921D5 /* Diamond.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diamond.swift; sourceTree = "<group>"; };
 		44381A1A2493903900351135 /* SetGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SetGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		44381A1D2493903900351135 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		44381A1F2493903900351135 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -75,6 +77,7 @@
 				44381A1D2493903900351135 /* AppDelegate.swift */,
 				44381A1F2493903900351135 /* SceneDelegate.swift */,
 				44381A212493903900351135 /* ContentView.swift */,
+				44110E0724A2533F000921D5 /* Diamond.swift */,
 				4482A6D624939C5A00F2CD6C /* SetGameViewModel.swift */,
 				44381A312493911B00351135 /* SetGameModel.swift */,
 				4482A6E024954ADD00F2CD6C /* CardContent.swift */,
@@ -170,6 +173,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				44110E0824A2533F000921D5 /* Diamond.swift in Sources */,
 				44381A1E2493903900351135 /* AppDelegate.swift in Sources */,
 				4482A6E124954ADD00F2CD6C /* CardContent.swift in Sources */,
 				44381A202493903900351135 /* SceneDelegate.swift in Sources */,
