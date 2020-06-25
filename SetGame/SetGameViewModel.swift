@@ -33,9 +33,18 @@ class SetGameViewModel: ObservableObject {
     // MARK: Access to the model
     
     var table: [SetGameModel<CardContent>.Card] { setGame?.table ?? [] }
+    var deck: [SetGameModel<CardContent>.Card] { setGame?.deck ?? [] }
     var score: Int { setGame?.score ?? 0 }
     var isReadyToMatch: Bool { return setGame?.isReadyToMatch ?? false }
     var isDeckEmpty: Bool { return setGame?.deck.isEmpty ?? true }
+    
+    func cardColor(card: SetGameModel<CardContent>.Card) -> Color {
+        switch card.content.color {
+            case .red: return colorSet.red
+            case .green: return colorSet.green
+            case .purple: return colorSet.purple
+        }
+    }
     
     // MARK: Intents
     

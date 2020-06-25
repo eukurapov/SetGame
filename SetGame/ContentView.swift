@@ -32,12 +32,13 @@ struct ContentView: View {
             }
                 .padding(5)
             Grid(setGameViewModel.table) { card in
-                CardView(card: card, colorSet: self.setGameViewModel.colorSet)
+                CardView(card: card)
+                    .foregroundColor(self.setGameViewModel.cardColor(card: card))
                     .cardify(isFaceUp: card.isFaceUp,
                              shadowColor: self.highlightColor(card: card))
                     .padding(5)
                     .aspectRatio(0.75, contentMode: .fit)
-                    .transition(.offset(CGSize(width: Int.random(in: -500...1000), height: Int.random(in: -500...1000))))
+                    .transition(.move(edge: .bottom))
                     .animation(.easeInOut(duration: 0.45))
                     .onTapGesture {
                         withAnimation {
@@ -46,6 +47,25 @@ struct ContentView: View {
                     }
             }
                 .padding(5)
+            ZStack {
+                if !setGameViewModel.deck.isEmpty {
+                    CardView(card: self.setGameViewModel.deck[0])
+                    .foregroundColor(self.setGameViewModel.cardColor(card: self.setGameViewModel.deck[0]))
+                    .cardify(isFaceUp: self.setGameViewModel.deck[0].isFaceUp,
+                             with: Gradient(colors: [
+                                self.setGameViewModel.colorSet.green,
+                                self.setGameViewModel.colorSet.red,
+                                self.setGameViewModel.colorSet.purple]))
+                    .padding(5)
+                    .aspectRatio(0.75, contentMode: .fit)
+                    .frame(minWidth: 100, maxWidth: 120, alignment: .center)
+                    .onTapGesture {
+                        withAnimation {
+                            self.setGameViewModel.dealMore()
+                        }
+                    }
+                }
+            }
         }
         .onAppear {
             if self.setGameViewModel.table.isEmpty {
@@ -75,24 +95,6 @@ struct ContentView: View {
 struct CardView: View {
     
     var card: SetGameModel<CardContent>.Card
-    var colorSet: (red: Color, green: Color, purple: Color)
-    
-    private var cardColor: Color {
-        // TODO: Replace with theme.color(for card.color)
-        switch card.content.color {
-            case .red: return colorSet.red
-            case .green: return colorSet.green
-            case .purple: return colorSet.purple
-        }
-    }
-    
-    private var fillColor: Color {
-        switch card.content.shading {
-        case .open: return .white
-        case .solid: return cardColor
-        case .striped: return cardColor.opacity(0.25)
-        }
-    }
     
     var body: some View {
         VStack {
@@ -101,21 +103,25 @@ struct CardView: View {
             }
         }
             .padding(10)
-            .foregroundColor(cardColor)
     }
     
     private func shapeView() -> some View {
-        Group {
-            if card.content.shape == .diamond {
-                Diamond().fill(fillColor).overlay(Diamond().stroke(lineWidth: shapeLineWidth))
-                                    .aspectRatio(1, contentMode: .fit)
-            }
-            if card.content.shape == .oval {
-                Capsule().fill(fillColor).overlay(Capsule().stroke(lineWidth: shapeLineWidth))
-                                    .aspectRatio(2, contentMode: .fit)
-            }
-            if card.content.shape == .squiggle {
-                Circle().fill(fillColor).overlay(Circle().stroke(lineWidth: shapeLineWidth))
+        cardShape(contentShape: card.content.shape)
+            .fill()
+            .opacity(card.content.shading == .striped ? 0.25 :
+                        (card.content.shading == .open ? 0 : 1))
+            .overlay(cardShape(contentShape: card.content.shape).stroke(lineWidth: shapeLineWidth))
+            .aspectRatio(card.content.shape == .oval ? 2 : 1, contentMode: .fit)
+    }
+    
+    struct cardShape: Shape {
+        var contentShape: CardContent.ContentShape
+        
+        func path(in rect: CGRect) -> Path {
+            switch contentShape {
+            case .diamond: return Diamond().path(in: rect)
+            case .oval: return Capsule().path(in: rect)
+            case .squiggle: return Circle().path(in: rect)
             }
         }
     }

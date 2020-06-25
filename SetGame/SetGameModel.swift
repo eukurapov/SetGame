@@ -86,8 +86,12 @@ struct SetGameModel<CardContent> where CardContent: Matchable {
         var content: CardContent
         
         // card state
-        var isFaceUp: Bool = true
-        var isDealt: Bool = false
+        var isFaceUp: Bool = false
+        var isDealt: Bool = false {
+            didSet {
+                isFaceUp = isDealt
+            }
+        }
         var isSelected: Bool = false
         var isMatched: Bool = false
         var isDiscarded: Bool = false
