@@ -96,7 +96,7 @@ struct CardView: View {
     private func fillView(with shading: CardContent.ContentShading, for shape: CardContent.ContentShape) -> some View {
         Group {
             if shading == .striped {
-                cardShape(contentShape: shape).stripe()
+                cardShape(contentShape: shape).stripe(angle: stripeAngle, frequency: stripeFrequency)
             } else if shading == .solid {
                 cardShape(contentShape: shape).fill()
             }
@@ -115,7 +115,9 @@ struct CardView: View {
         }
     }
     
-    let shapeLineWidth: CGFloat = 2
+    private let shapeLineWidth: CGFloat = 2
+    private let stripeAngle: Angle = Angle(degrees: 20)
+    private let stripeFrequency: CGFloat = 20
     
 }
 
