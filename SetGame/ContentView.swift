@@ -111,7 +111,7 @@ struct CardView: View {
             .opacity(card.content.shading == .striped ? 0.25 :
                         (card.content.shading == .open ? 0 : 1))
             .overlay(cardShape(contentShape: card.content.shape).stroke(lineWidth: shapeLineWidth))
-            .aspectRatio(card.content.shape == .oval ? 2 : 1, contentMode: .fit)
+            .aspectRatio(2, contentMode: .fit)
     }
     
     struct cardShape: Shape {
@@ -121,7 +121,7 @@ struct CardView: View {
             switch contentShape {
             case .diamond: return Diamond().path(in: rect)
             case .oval: return Capsule().path(in: rect)
-            case .squiggle: return Circle().path(in: rect)
+            case .squiggle: return Squiggle().path(in: rect)
             }
         }
     }
