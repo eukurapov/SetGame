@@ -47,25 +47,6 @@ struct ContentView: View {
                     }
             }
                 .padding(5)
-            ZStack {
-                if !setGameViewModel.deck.isEmpty {
-                    CardView(card: self.setGameViewModel.deck[0])
-                    .foregroundColor(self.setGameViewModel.cardColor(card: self.setGameViewModel.deck[0]))
-                    .cardify(isFaceUp: self.setGameViewModel.deck[0].isFaceUp,
-                             with: Gradient(colors: [
-                                self.setGameViewModel.colorSet.green,
-                                self.setGameViewModel.colorSet.red,
-                                self.setGameViewModel.colorSet.purple]))
-                    .padding(5)
-                    .aspectRatio(0.75, contentMode: .fit)
-                    .frame(minWidth: 100, maxWidth: 120, alignment: .center)
-                    .onTapGesture {
-                        withAnimation {
-                            self.setGameViewModel.dealMore()
-                        }
-                    }
-                }
-            }
         }
         .onAppear {
             if self.setGameViewModel.table.isEmpty {
