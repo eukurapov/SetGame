@@ -38,6 +38,7 @@ struct ContentView: View {
                              shadowColor: self.highlightColor(card: card))
                     .padding(5)
                     .aspectRatio(0.75, contentMode: .fit)
+                    .rotationEffect(card.isMatched ? Angle(degrees: 360) : Angle(degrees: 0))
                     .transition(.offset(CGSize(width: Int.random(in: -500...1000), height: Int.random(in: -500...1000))))
                     .animation(.easeInOut(duration: 0.45))
                     .onTapGesture {
