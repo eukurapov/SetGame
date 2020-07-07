@@ -23,6 +23,7 @@
 		4482A6E124954ADD00F2CD6C /* CardContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4482A6E024954ADD00F2CD6C /* CardContent.swift */; };
 		4482A6E324954B0F00F2CD6C /* Matchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4482A6E224954B0F00F2CD6C /* Matchable.swift */; };
 		449080EE24B4716F00452FB0 /* Squiggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449080ED24B4716F00452FB0 /* Squiggle.swift */; };
+		449080F224B490D900452FB0 /* Stripe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449080F124B490D900452FB0 /* Stripe.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		4482A6E024954ADD00F2CD6C /* CardContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardContent.swift; sourceTree = "<group>"; };
 		4482A6E224954B0F00F2CD6C /* Matchable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Matchable.swift; sourceTree = "<group>"; };
 		449080ED24B4716F00452FB0 /* Squiggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Squiggle.swift; sourceTree = "<group>"; };
+		449080F124B490D900452FB0 /* Stripe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stripe.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,15 +78,15 @@
 		44381A1C2493903900351135 /* SetGame */ = {
 			isa = PBXGroup;
 			children = (
+				449080F024B48FEF00452FB0 /* ViewModifiers */,
 				449080EC24B4713B00452FB0 /* Shapes */,
 				44381A1D2493903900351135 /* AppDelegate.swift */,
 				44381A1F2493903900351135 /* SceneDelegate.swift */,
 				44381A212493903900351135 /* ContentView.swift */,
 				4482A6D624939C5A00F2CD6C /* SetGameViewModel.swift */,
 				44381A312493911B00351135 /* SetGameModel.swift */,
-				4482A6E024954ADD00F2CD6C /* CardContent.swift */,
 				4482A6E224954B0F00F2CD6C /* Matchable.swift */,
-				4482A6DA2493A0B900F2CD6C /* Cardify.swift */,
+				4482A6E024954ADD00F2CD6C /* CardContent.swift */,
 				4482A6DE2493A51B00F2CD6C /* Array+Identifiable.swift */,
 				4482A6D82493A0B900F2CD6C /* Grid.swift */,
 				4482A6D92493A0B900F2CD6C /* GridLayout.swift */,
@@ -111,6 +113,15 @@
 				449080ED24B4716F00452FB0 /* Squiggle.swift */,
 			);
 			path = Shapes;
+			sourceTree = "<group>";
+		};
+		449080F024B48FEF00452FB0 /* ViewModifiers */ = {
+			isa = PBXGroup;
+			children = (
+				4482A6DA2493A0B900F2CD6C /* Cardify.swift */,
+				449080F124B490D900452FB0 /* Stripe.swift */,
+			);
+			path = ViewModifiers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -184,6 +195,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				449080F224B490D900452FB0 /* Stripe.swift in Sources */,
 				44110E0824A2533F000921D5 /* Diamond.swift in Sources */,
 				44381A1E2493903900351135 /* AppDelegate.swift in Sources */,
 				4482A6E124954ADD00F2CD6C /* CardContent.swift in Sources */,

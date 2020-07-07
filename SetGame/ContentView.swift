@@ -88,11 +88,19 @@ struct CardView: View {
     
     private func shapeView() -> some View {
         cardShape(contentShape: card.content.shape)
-            .fill()
-            .opacity(card.content.shading == .striped ? 0.25 :
-                        (card.content.shading == .open ? 0 : 1))
-            .overlay(cardShape(contentShape: card.content.shape).stroke(lineWidth: shapeLineWidth))
+            .stroke(lineWidth: shapeLineWidth)
+            .overlay(fillView(with: card.content.shading, for: card.content.shape))
             .aspectRatio(2, contentMode: .fit)
+    }
+    
+    private func fillView(with shading: CardContent.ContentShading, for shape: CardContent.ContentShape) -> some View {
+        Group {
+            if shading == .striped {
+                cardShape(contentShape: shape).stripe()
+            } else if shading == .solid {
+                cardShape(contentShape: shape).fill()
+            }
+        }
     }
     
     struct cardShape: Shape {
