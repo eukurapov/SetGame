@@ -48,20 +48,14 @@ struct ContentView: View {
                 .padding(5)
             HStack {
                 GeometryReader { geo in
-                    if self.setGameViewModel.isBonusConsuming {
-                        RoundedRectangle(cornerRadius: 3)
-                            .fill(Color.blue)
-                            .frame(width: geo.size.width * CGFloat(self.animatedBonustPartRemaining),
-                                   alignment: Alignment.leading)
-                            .onAppear {
-                                self.startBonusTimeAnimation()
-                            }
-                    } else if self.setGameViewModel.bonusPartRemaining > 0 {
-                        RoundedRectangle(cornerRadius: 3)
-                        .fill(Color.blue)
-                        .frame(width: geo.size.width * CGFloat(self.setGameViewModel.bonusPartRemaining),
-                               alignment: Alignment.leading)
-                    }
+                    ProgressBar(animatedBonustPartRemaining: self.$animatedBonustPartRemaining,
+                                isBonusConsuming: self.setGameViewModel.isBonusConsuming,
+                                bonusPartRemaining: self.setGameViewModel.bonusPartRemaining,
+                                bonusTimeRemaining: self.setGameViewModel.bonusTimeRemaining,
+                                size: geo.size)
+                        .onAppear {
+                            self.startBonusTimeAnimation()
+                        }
                     Spacer()
                 }.frame(height: 10, alignment: Alignment.center).padding(.horizontal)
                 Button("Cheat (\(self.setGameViewModel.cheatCount))") {
@@ -73,12 +67,7 @@ struct ContentView: View {
                 .padding(.horizontal, 5)
             }
             Grid(setGameViewModel.table) { card in
-                CardView(card: card)
-                    .foregroundColor(Color(card.content.uiColor))
-                    .cardify(isFaceUp: card.isFaceUp,
-                             shadowColor: self.highlightColor(card: card))
-                    .padding(5)
-                    .aspectRatio(0.75, contentMode: .fit)
+                CardView(card: card, shadowColor: self.highlightColor)
                     .transition(.offset(CGSize(width: Int.random(in: -500...1000), height: Int.random(in: -500...1000))))
                     .animation(.easeInOut(duration: 0.45))
                     .onTapGesture {
@@ -111,54 +100,6 @@ struct ContentView: View {
         }
         return color
     }
-    
-}
-
-struct CardView: View {
-    
-    var card: SetGameModel<CardContent>.Card
-    
-    var body: some View {
-        VStack {
-            ForEach(0..<card.content.numberOfShapes.rawValue) { index in
-                self.shapeView()
-            }
-        }
-            .padding(10)
-    }
-    
-    private func shapeView() -> some View {
-        cardShape(contentShape: card.content.shape)
-            .stroke(lineWidth: shapeLineWidth)
-            .overlay(fillView(with: card.content.shading, for: card.content.shape))
-            .aspectRatio(2, contentMode: .fit)
-    }
-    
-    private func fillView(with shading: CardContent.ContentShading, for shape: CardContent.ContentShape) -> some View {
-        Group {
-            if shading == .striped {
-                cardShape(contentShape: shape).stripe(angle: stripeAngle, frequency: stripeFrequency)
-            } else if shading == .solid {
-                cardShape(contentShape: shape).fill()
-            }
-        }
-    }
-    
-    struct cardShape: Shape {
-        var contentShape: CardContent.ContentShape
-        
-        func path(in rect: CGRect) -> Path {
-            switch contentShape {
-            case .diamond: return Diamond().path(in: rect)
-            case .oval: return Capsule().path(in: rect)
-            case .squiggle: return Squiggle().path(in: rect)
-            }
-        }
-    }
-    
-    private let shapeLineWidth: CGFloat = 2
-    private let stripeAngle: Angle = Angle(degrees: 20)
-    private let stripeFrequency: CGFloat = 20
     
 }
 

@@ -15,6 +15,8 @@
 		44381A272493903C00351135 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 44381A262493903C00351135 /* Preview Assets.xcassets */; };
 		44381A2A2493903C00351135 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 44381A282493903C00351135 /* LaunchScreen.storyboard */; };
 		44381A322493911B00351135 /* SetGameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44381A312493911B00351135 /* SetGameModel.swift */; };
+		443EC41524B6240800ADA66A /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 443EC41424B6240800ADA66A /* CardView.swift */; };
+		443EC41724B6281E00ADA66A /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 443EC41624B6281E00ADA66A /* ProgressBar.swift */; };
 		4482A6D724939C5A00F2CD6C /* SetGameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4482A6D624939C5A00F2CD6C /* SetGameViewModel.swift */; };
 		4482A6DB2493A0B900F2CD6C /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4482A6D82493A0B900F2CD6C /* Grid.swift */; };
 		4482A6DC2493A0B900F2CD6C /* GridLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4482A6D92493A0B900F2CD6C /* GridLayout.swift */; };
@@ -37,6 +39,8 @@
 		44381A292493903C00351135 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		44381A2B2493903C00351135 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		44381A312493911B00351135 /* SetGameModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetGameModel.swift; sourceTree = "<group>"; };
+		443EC41424B6240800ADA66A /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		443EC41624B6281E00ADA66A /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
 		4482A6D624939C5A00F2CD6C /* SetGameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetGameViewModel.swift; sourceTree = "<group>"; };
 		4482A6D82493A0B900F2CD6C /* Grid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Grid.swift; sourceTree = "<group>"; };
 		4482A6D92493A0B900F2CD6C /* GridLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridLayout.swift; sourceTree = "<group>"; };
@@ -78,6 +82,7 @@
 		44381A1C2493903900351135 /* SetGame */ = {
 			isa = PBXGroup;
 			children = (
+				443EC41824B62A4A00ADA66A /* Views */,
 				449080F024B48FEF00452FB0 /* ViewModifiers */,
 				449080EC24B4713B00452FB0 /* Shapes */,
 				44381A1D2493903900351135 /* AppDelegate.swift */,
@@ -88,8 +93,6 @@
 				4482A6E224954B0F00F2CD6C /* Matchable.swift */,
 				4482A6E024954ADD00F2CD6C /* CardContent.swift */,
 				4482A6DE2493A51B00F2CD6C /* Array+Identifiable.swift */,
-				4482A6D82493A0B900F2CD6C /* Grid.swift */,
-				4482A6D92493A0B900F2CD6C /* GridLayout.swift */,
 				44381A232493903C00351135 /* Assets.xcassets */,
 				44381A282493903C00351135 /* LaunchScreen.storyboard */,
 				44381A2B2493903C00351135 /* Info.plist */,
@@ -104,6 +107,17 @@
 				44381A262493903C00351135 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		443EC41824B62A4A00ADA66A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				443EC41624B6281E00ADA66A /* ProgressBar.swift */,
+				443EC41424B6240800ADA66A /* CardView.swift */,
+				4482A6D82493A0B900F2CD6C /* Grid.swift */,
+				4482A6D92493A0B900F2CD6C /* GridLayout.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		449080EC24B4713B00452FB0 /* Shapes */ = {
@@ -199,6 +213,8 @@
 				44110E0824A2533F000921D5 /* Diamond.swift in Sources */,
 				44381A1E2493903900351135 /* AppDelegate.swift in Sources */,
 				4482A6E124954ADD00F2CD6C /* CardContent.swift in Sources */,
+				443EC41524B6240800ADA66A /* CardView.swift in Sources */,
+				443EC41724B6281E00ADA66A /* ProgressBar.swift in Sources */,
 				44381A202493903900351135 /* SceneDelegate.swift in Sources */,
 				4482A6DD2493A0B900F2CD6C /* Cardify.swift in Sources */,
 				4482A6E324954B0F00F2CD6C /* Matchable.swift in Sources */,
