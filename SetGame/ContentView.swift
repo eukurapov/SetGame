@@ -13,11 +13,16 @@ struct ContentView: View {
     @ObservedObject var setGameViewModel: SetGameViewModel
     @State var animatedBonustPartRemaining: Double = 0
     
+    var canCheat: Bool {
+        setGameViewModel.bonusTimeRemaining <= 0 && setGameViewModel.cheatCount > 0 && !setGameViewModel.isReadyToMatch
+    }
+    
     private func startBonusTimeAnimation() {
         animatedBonustPartRemaining = setGameViewModel.bonusPartRemaining
         withAnimation(.linear(duration: setGameViewModel.bonusTimeRemaining)) {
             animatedBonustPartRemaining = 0
         }
+        setGameViewModel.startTimer()
     }
     
     var body: some View {
@@ -41,23 +46,32 @@ struct ContentView: View {
                 .disabled(setGameViewModel.isDeckEmpty)
             }
                 .padding(5)
-            GeometryReader { geo in
-                if self.setGameViewModel.isBonusConsuming {
-                    RoundedRectangle(cornerRadius: 3)
+            HStack {
+                GeometryReader { geo in
+                    if self.setGameViewModel.isBonusConsuming {
+                        RoundedRectangle(cornerRadius: 3)
+                            .fill(Color.blue)
+                            .frame(width: geo.size.width * CGFloat(self.animatedBonustPartRemaining),
+                                   alignment: Alignment.leading)
+                            .onAppear {
+                                self.startBonusTimeAnimation()
+                            }
+                    } else if self.setGameViewModel.bonusPartRemaining > 0 {
+                        RoundedRectangle(cornerRadius: 3)
                         .fill(Color.blue)
-                        .frame(width: geo.size.width * CGFloat(self.animatedBonustPartRemaining),
+                        .frame(width: geo.size.width * CGFloat(self.setGameViewModel.bonusPartRemaining),
                                alignment: Alignment.leading)
-                        .onAppear {
-                            self.startBonusTimeAnimation()
-                        }
-                } else {
-                    RoundedRectangle(cornerRadius: 3)
-                    .fill(Color.blue)
-                    .frame(width: geo.size.width * CGFloat(self.setGameViewModel.bonusPartRemaining),
-                           alignment: Alignment.leading)
+                    }
+                    Spacer()
+                }.frame(height: 10, alignment: Alignment.center).padding(.horizontal)
+                Button("Cheat (\(self.setGameViewModel.cheatCount))") {
+                    withAnimation {
+                        self.setGameViewModel.cheat()
+                    }
                 }
-                Spacer()
-            }.frame(height: 10, alignment: Alignment.center).padding(.horizontal)
+                .disabled(!canCheat)
+                .padding(.horizontal, 5)
+            }
             Grid(setGameViewModel.table) { card in
                 CardView(card: card)
                     .foregroundColor(self.setGameViewModel.cardColor(card: card))

@@ -40,6 +40,7 @@ class SetGameViewModel: ObservableObject {
     var isBonusConsuming: Bool { return setGame?.isBonusConsuming ?? false }
     var bonusPartRemaining: Double { return setGame?.bonusPartRemaining ?? 0 }
     var bonusTimeRemaining: Double { return setGame?.bonusTimeRemaining ?? 0 }
+    var cheatCount: Int { return setGame?.cheatCout ?? 0 }
     
     func cardColor(card: SetGameModel<CardContent>.Card) -> Color {
         switch card.content.color {
@@ -61,6 +62,20 @@ class SetGameViewModel: ObservableObject {
     
     func dealMore() {
         setGame?.deal(3)
+    }
+    
+    func cheat() {
+        setGame?.cheat()
+    }
+    
+    var timer: Timer?
+    func startTimer() {
+        if let timeRemaining = setGame?.bonusTimeRemaining {
+            timer?.invalidate()
+            timer = Timer.scheduledTimer(withTimeInterval: timeRemaining, repeats: false) { _ in
+                self.setGame?.updateSpentTime()
+            }
+        }
     }
     
 }

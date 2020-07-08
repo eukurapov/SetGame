@@ -15,6 +15,7 @@ struct SetGameModel<CardContent> where CardContent: Matchable {
     var table: [Card] { cards.filter { $0.isDealt && !$0.isDiscarded } }
     private var selectedCards: [Int] { cards.indices.filter { cards[$0].isSelected && !cards[$0].isDiscarded } }
     var isReadyToMatch: Bool { selectedCards.count == numberOfCardsToMatch }
+    private(set) var cheatCout = 3
     
     private(set) var score: Int = 0
     
@@ -90,6 +91,32 @@ struct SetGameModel<CardContent> where CardContent: Matchable {
         }
     }
     
+    mutating func cheat() {
+        if let cheatCards = cheatList() {
+            for index in selectedCards {
+                cards[index].isSelected = false
+            }
+            for card in cheatCards {
+                select(card: card)
+            }
+            cheatCout -= 1
+        }
+    }
+    
+    private func cheatList() -> [Card]? {
+        for i in 0..<table.count - 2 {
+            for j in i+1..<table.count - 1 {
+                for k in j+1..<table.count {
+                    let checkList = [table[i], table[j], table[k]]
+                    if CardContent.match(items: checkList.map { $0.content } ) {
+                        return checkList
+                    }
+                }
+            }
+        }
+        return nil
+    }
+    
     // MARK: Card
     
     struct Card: Identifiable {
@@ -148,6 +175,15 @@ struct SetGameModel<CardContent> where CardContent: Matchable {
     private mutating func penalizeBonusTime(for timeFee: Double = 5) {
         if lastDealTime != nil {
             bonusTimeSpent += timeFee + Date().timeIntervalSince(lastDealTime)
+            lastDealTime = Date()
         }
     }
+    
+    mutating func updateSpentTime() {
+        if lastDealTime != nil {
+            bonusTimeSpent += Date().timeIntervalSince(lastDealTime)
+            lastDealTime = Date()
+        }
+    }
+    
 }
