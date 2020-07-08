@@ -174,7 +174,13 @@ struct SetGameModel<CardContent> where CardContent: Matchable {
     
     private mutating func penalizeBonusTime(for timeFee: Double = 5) {
         if lastDealTime != nil {
-            bonusTimeSpent += timeFee + Date().timeIntervalSince(lastDealTime)
+            // double time fee is there is a match on table
+            if let _ = cheatList() {
+                bonusTimeSpent += timeFee * 2
+            } else {
+                bonusTimeSpent += timeFee
+            }
+            bonusTimeSpent += Date().timeIntervalSince(lastDealTime)
             lastDealTime = Date()
         }
     }
