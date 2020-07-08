@@ -74,7 +74,7 @@ struct ContentView: View {
             }
             Grid(setGameViewModel.table) { card in
                 CardView(card: card)
-                    .foregroundColor(self.setGameViewModel.cardColor(card: card))
+                    .foregroundColor(Color(card.content.uiColor))
                     .cardify(isFaceUp: card.isFaceUp,
                              shadowColor: self.highlightColor(card: card))
                     .padding(5)

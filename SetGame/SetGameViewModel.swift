@@ -11,10 +11,6 @@ import SwiftUI
 class SetGameViewModel: ObservableObject {
     
     @Published private var setGame: SetGameModel<CardContent>?
-    var colorSet = (
-        red: Color(#colorLiteral(red: 1, green: 0.4932718873, blue: 0.4739984274, alpha: 1)),
-        green: Color(#colorLiteral(red: 0.4508578777, green: 0.9882974029, blue: 0.8376303315, alpha: 1)),
-        purple: Color(#colorLiteral(red: 0.8446564078, green: 0.5145705342, blue: 1, alpha: 1)))
     
     private static func newGame() -> SetGameModel<CardContent> {
         var contents = [CardContent]()
@@ -42,14 +38,6 @@ class SetGameViewModel: ObservableObject {
     var bonusTimeRemaining: Double { return setGame?.bonusTimeRemaining ?? 0 }
     var cheatCount: Int { return setGame?.cheatCout ?? 0 }
     
-    func cardColor(card: SetGameModel<CardContent>.Card) -> Color {
-        switch card.content.color {
-            case .red: return colorSet.red
-            case .green: return colorSet.green
-            case .purple: return colorSet.purple
-        }
-    }
-    
     // MARK: Intents
     
     func newGame() {
@@ -75,6 +63,18 @@ class SetGameViewModel: ObservableObject {
             timer = Timer.scheduledTimer(withTimeInterval: timeRemaining, repeats: false) { _ in
                 self.setGame?.updateSpentTime()
             }
+        }
+    }
+    
+}
+
+extension CardContent {
+    
+    var uiColor: UIColor {
+        switch self.color {
+            case .red: return #colorLiteral(red: 1, green: 0.4932718873, blue: 0.4739984274, alpha: 1)
+            case .green: return #colorLiteral(red: 0.4508578777, green: 0.9882974029, blue: 0.8376303315, alpha: 1)
+            case .purple: return #colorLiteral(red: 0.8446564078, green: 0.5145705342, blue: 1, alpha: 1)
         }
     }
     
