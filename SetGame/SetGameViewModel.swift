@@ -10,7 +10,7 @@ import SwiftUI
 
 class SetGameViewModel: ObservableObject {
     
-    @Published private var setGame: SetGameModel<CardContent>?
+    @Published private var setGame: SetGameModel<CardContent> = SetGameViewModel.newGame()
     
     private static func newGame() -> SetGameModel<CardContent> {
         var contents = [CardContent]()
@@ -28,41 +28,42 @@ class SetGameViewModel: ObservableObject {
     
     // MARK: Access to the model
     
-    var table: [SetGameModel<CardContent>.Card] { setGame?.table ?? [] }
-    var deck: [SetGameModel<CardContent>.Card] { setGame?.deck ?? [] }
-    var score: Int { setGame?.score ?? 0 }
-    var isReadyToMatch: Bool { return setGame?.isReadyToMatch ?? false }
-    var isDeckEmpty: Bool { return setGame?.deck.isEmpty ?? true }
-    var isBonusConsuming: Bool { return setGame?.isBonusConsuming ?? false }
-    var bonusPartRemaining: Double { return setGame?.bonusPartRemaining ?? 0 }
-    var bonusTimeRemaining: Double { return setGame?.bonusTimeRemaining ?? 0 }
-    var cheatCount: Int { return setGame?.cheatCout ?? 0 }
+    var table: [SetGameModel<CardContent>.Card] { setGame.table }
+    var deck: [SetGameModel<CardContent>.Card] { setGame.deck }
+    var score: Int { setGame.score }
+    var isReadyToMatch: Bool { return setGame.isReadyToMatch }
+    var isDeckEmpty: Bool { return setGame.deck.isEmpty }
+    var isBonusConsuming: Bool { return setGame.isBonusConsuming }
+    var bonusPartRemaining: Double { return setGame.bonusPartRemaining }
+    var bonusTimeRemaining: Double { return setGame.bonusTimeRemaining }
+    var cheatCount: Int { return setGame.cheatCout }
     
     // MARK: Intents
     
     func newGame() {
-        setGame = SetGameViewModel.newGame()
+        if !setGame.table.isEmpty {
+            setGame = SetGameViewModel.newGame()
+        }
+        setGame.deal(cards: 12)
     }
     
     func select(card: SetGameModel<CardContent>.Card) {
-        setGame?.select(card: card)
+        setGame.select(card: card)
     }
     
     func dealMore() {
-        setGame?.deal(3)
+        setGame.deal(cards: 3)
     }
     
     func cheat() {
-        setGame?.cheat()
+        setGame.cheat()
     }
     
     var timer: Timer?
     func startTimer() {
-        if let timeRemaining = setGame?.bonusTimeRemaining {
-            timer?.invalidate()
-            timer = Timer.scheduledTimer(withTimeInterval: timeRemaining, repeats: false) { _ in
-                self.setGame?.updateSpentTime()
-            }
+        timer?.invalidate()
+        timer = Timer.scheduledTimer(withTimeInterval: setGame.bonusTimeRemaining, repeats: false) { _ in
+            self.setGame.updateSpentTime()
         }
     }
     

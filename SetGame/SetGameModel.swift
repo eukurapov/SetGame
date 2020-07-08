@@ -29,11 +29,9 @@ struct SetGameModel<CardContent> where CardContent: Matchable {
             cards.append(Card(id: index, content: cardContentFactory(index)))
         }
         cards.shuffle()
-        deal(numberOfCardsToStart)
-        startUsingBonusTime()
     }
     
-    mutating func deal(_ cardsToDeal: Int = 1) {
+    mutating func deal(cards cardsToDeal: Int = 1) {
         guard cardsToDeal > 0 else { return }
         if isReadyToMatch {
             for index in selectedCards {
@@ -51,6 +49,8 @@ struct SetGameModel<CardContent> where CardContent: Matchable {
         }
         if isBonusConsuming {
             penalizeBonusTime()
+        } else {
+            startUsingBonusTime()
         }
     }
     
@@ -65,7 +65,7 @@ struct SetGameModel<CardContent> where CardContent: Matchable {
                         cardsToDeal += 1
                     }
                 }
-                deal(cardsToDeal)
+                deal(cards: cardsToDeal)
                 if cardsToDeal > 0 {
                     resetSpentTime()
                     startUsingBonusTime()
