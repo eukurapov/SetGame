@@ -37,6 +37,9 @@ class SetGameViewModel: ObservableObject {
     var score: Int { setGame?.score ?? 0 }
     var isReadyToMatch: Bool { return setGame?.isReadyToMatch ?? false }
     var isDeckEmpty: Bool { return setGame?.deck.isEmpty ?? true }
+    var isBonusConsuming: Bool { return setGame?.isBonusConsuming ?? false }
+    var bonusPartRemaining: Double { return setGame?.bonusPartRemaining ?? 0 }
+    var bonusTimeRemaining: Double { return setGame?.bonusTimeRemaining ?? 0 }
     
     func cardColor(card: SetGameModel<CardContent>.Card) -> Color {
         switch card.content.color {

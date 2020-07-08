@@ -11,6 +11,14 @@ import SwiftUI
 struct ContentView: View {
     
     @ObservedObject var setGameViewModel: SetGameViewModel
+    @State var animatedBonustPartRemaining: Double = 0
+    
+    private func startBonusTimeAnimation() {
+        animatedBonustPartRemaining = setGameViewModel.bonusPartRemaining
+        withAnimation(.linear(duration: setGameViewModel.bonusTimeRemaining)) {
+            animatedBonustPartRemaining = 0
+        }
+    }
     
     var body: some View {
         VStack {
@@ -18,6 +26,7 @@ struct ContentView: View {
                 Button("New Game") {
                     withAnimation {
                         self.setGameViewModel.newGame()
+                        self.startBonusTimeAnimation()
                     }
                 }
                 Spacer()
@@ -26,11 +35,29 @@ struct ContentView: View {
                 Button("Deal More") {
                     withAnimation {
                         self.setGameViewModel.dealMore()
+                        self.startBonusTimeAnimation()
                     }
                 }
                 .disabled(setGameViewModel.isDeckEmpty)
             }
                 .padding(5)
+            GeometryReader { geo in
+                if self.setGameViewModel.isBonusConsuming {
+                    RoundedRectangle(cornerRadius: 3)
+                        .fill(Color.blue)
+                        .frame(width: geo.size.width * CGFloat(self.animatedBonustPartRemaining),
+                               alignment: Alignment.leading)
+                        .onAppear {
+                            self.startBonusTimeAnimation()
+                        }
+                } else {
+                    RoundedRectangle(cornerRadius: 3)
+                    .fill(Color.blue)
+                    .frame(width: geo.size.width * CGFloat(self.setGameViewModel.bonusPartRemaining),
+                           alignment: Alignment.leading)
+                }
+                Spacer()
+            }.frame(height: 10, alignment: Alignment.center).padding(.horizontal)
             Grid(setGameViewModel.table) { card in
                 CardView(card: card)
                     .foregroundColor(self.setGameViewModel.cardColor(card: card))

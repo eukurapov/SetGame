@@ -29,9 +29,11 @@ struct SetGameModel<CardContent> where CardContent: Matchable {
         }
         cards.shuffle()
         deal(numberOfCardsToStart)
+        startUsingBonusTime()
     }
     
-    mutating func deal(_ numberToDeal: Int = 1) {
+    mutating func deal(_ cardsToDeal: Int = 1) {
+        guard cardsToDeal > 0 else { return }
         if isReadyToMatch {
             for index in selectedCards {
                 if cards[index].isMatched {
@@ -39,7 +41,7 @@ struct SetGameModel<CardContent> where CardContent: Matchable {
                 }
             }
         }
-        for _ in 0..<numberToDeal {
+        for _ in 0..<cardsToDeal {
             if !deck.isEmpty {
                 if let index = cards.firstIndexOf(deck[0]) {
                     cards[index].isDealt = true
@@ -48,20 +50,24 @@ struct SetGameModel<CardContent> where CardContent: Matchable {
         }
         if isBonusConsuming {
             penalizeBonusTime()
-        } else {
-            startUsingBonusTime()
         }
     }
     
     mutating func select(card: Card) {
         if let selectedIndex = cards.firstIndexOf(card) {
             if isReadyToMatch {
+                var cardsToDeal = 0
                 for index in selectedCards {
                     cards[index].isSelected = false
                     if cards[index].isMatched {
                         cards[index].isDiscarded = true
-                        deal()
+                        cardsToDeal += 1
                     }
+                }
+                deal(cardsToDeal)
+                if cardsToDeal > 0 {
+                    resetSpentTime()
+                    startUsingBonusTime()
                 }
             }
             cards[selectedIndex].isSelected = !cards[selectedIndex].isSelected
@@ -80,12 +86,11 @@ struct SetGameModel<CardContent> where CardContent: Matchable {
                 }
                 
                 score += bonusTimeRemaining > 0 ? 2 : 1
-                //print("↑ score added: \(bonusTimeRemaining > 0 ? 2 : 1)")
-                
-                resetSpentTime()
             }
         }
     }
+    
+    // MARK: Card
     
     struct Card: Identifiable {
         
@@ -105,7 +110,8 @@ struct SetGameModel<CardContent> where CardContent: Matchable {
         
     }
     
-    // Time consuming to add bonus for quick match
+    // MARK: Time consuming to add bonus for quick match
+    
     private var bonusTimeLimit = TimeInterval(20)
     private var bonusTimeSpent = TimeInterval(0)
     private var lastDealTime: Date!
@@ -125,27 +131,23 @@ struct SetGameModel<CardContent> where CardContent: Matchable {
     private mutating func startUsingBonusTime() {
         if lastDealTime == nil, bonusTimeRemaining > 0 {
             lastDealTime = Date()
-            //print("✓ start at \(lastDealTime!)")
         }
     }
     
     private mutating func stopUsingBonusTime() {
         if lastDealTime != nil {
-            //print("× stop at \(lastDealTime!)")
             bonusTimeSpent += Date().timeIntervalSince(lastDealTime)
             lastDealTime = nil
         }
     }
     
     private mutating func resetSpentTime() {
-        //print("+ reset bonus time from \(bonusTimeSpent)")
         bonusTimeSpent = 0
     }
     
     private mutating func penalizeBonusTime(for timeFee: Double = 5) {
         if lastDealTime != nil {
             bonusTimeSpent += timeFee + Date().timeIntervalSince(lastDealTime)
-            //print("- charged bonus time to \(bonusTimeSpent)")
         }
     }
 }
