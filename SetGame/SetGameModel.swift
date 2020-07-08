@@ -18,10 +18,6 @@ struct SetGameModel<CardContent> where CardContent: Matchable {
     
     private(set) var score: Int = 0
     
-    private var firstSelected: Int? { !selectedCards.isEmpty ? selectedCards[0] : nil }
-    private var secondSelected: Int? { selectedCards.count > 1 ? selectedCards[1] : nil }
-    private var thirdSelected: Int? { selectedCards.count > 2 ? selectedCards[2] : nil }
-    
     // TODO: Update to take it as init parameter
     let numberOfCardsToMatch = 3
     let numberOfCardsToStart = 12
@@ -50,6 +46,11 @@ struct SetGameModel<CardContent> where CardContent: Matchable {
                 }
             }
         }
+        if isBonusConsuming {
+            penalizeBonusTime()
+        } else {
+            startUsingBonusTime()
+        }
     }
     
     mutating func select(card: Card) {
@@ -72,10 +73,16 @@ struct SetGameModel<CardContent> where CardContent: Matchable {
         if isReadyToMatch {
             let matched = CardContent.match(items: selectedCards.map { cards[$0].content })
             if matched {
+                stopUsingBonusTime()
+                
                 for index in selectedCards {
                     cards[index].isMatched = true
                 }
-                score += 1
+                
+                score += bonusTimeRemaining > 0 ? 2 : 1
+                //print("↑ score added: \(bonusTimeRemaining > 0 ? 2 : 1)")
+                
+                resetSpentTime()
             }
         }
     }
@@ -98,4 +105,47 @@ struct SetGameModel<CardContent> where CardContent: Matchable {
         
     }
     
+    // Time consuming to add bonus for quick match
+    private var bonusTimeLimit = TimeInterval(20)
+    private var bonusTimeSpent = TimeInterval(0)
+    private var lastDealTime: Date!
+    
+    var isBonusConsuming: Bool {
+        bonusTimeRemaining > 0 && lastDealTime != nil
+    }
+    
+    var bonusTimeRemaining: TimeInterval {
+        max(0, bonusTimeLimit - bonusTimeSpent)
+    }
+    
+    var bonusPartRemaining: Double {
+        bonusTimeRemaining > 0 ? bonusTimeRemaining / bonusTimeLimit : 0
+    }
+    
+    private mutating func startUsingBonusTime() {
+        if lastDealTime == nil, bonusTimeRemaining > 0 {
+            lastDealTime = Date()
+            //print("✓ start at \(lastDealTime!)")
+        }
+    }
+    
+    private mutating func stopUsingBonusTime() {
+        if lastDealTime != nil {
+            //print("× stop at \(lastDealTime!)")
+            bonusTimeSpent += Date().timeIntervalSince(lastDealTime)
+            lastDealTime = nil
+        }
+    }
+    
+    private mutating func resetSpentTime() {
+        //print("+ reset bonus time from \(bonusTimeSpent)")
+        bonusTimeSpent = 0
+    }
+    
+    private mutating func penalizeBonusTime(for timeFee: Double = 5) {
+        if lastDealTime != nil {
+            bonusTimeSpent += timeFee + Date().timeIntervalSince(lastDealTime)
+            //print("- charged bonus time to \(bonusTimeSpent)")
+        }
+    }
 }
